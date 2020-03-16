@@ -4,29 +4,23 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SignupComponent } from './auth/signup/signup.component';
-import { LoginComponent } from './auth/login/login.component';
-import { TrainingComponent } from './training/training.component';
-import { CurrentTrainingComponent } from './training/current-training/current-training.component';
-import { NewTrainingComponent } from './training/new-training/new-training.component';
-import { PastTrainingComponent } from './training/past-training/past-training.component';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+
 import { WelcomeComponent } from './welcome/welcome.component';
 import { MaterialModule } from './angular-material.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavComponent } from './navigation/sidenav/sidenav.component';
 import { StopTrainingComponent } from './training/current-training/stop-training-dialog.component';
+import {AngularFireModule} from 'angularfire2';
+import { environment } from '../environments/environment';
+import { UserModule } from './auth/user.module';
+import {StoreModule} from '@ngrx/store';
+import { reducers } from './state/app.reducer';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SignupComponent,
-    LoginComponent,
-    TrainingComponent,
-    CurrentTrainingComponent,
-    NewTrainingComponent,
-    PastTrainingComponent,
     WelcomeComponent,
     HeaderComponent,
     SidenavComponent,
@@ -38,8 +32,10 @@ import { StopTrainingComponent } from './training/current-training/stop-training
     BrowserAnimationsModule,
     MaterialModule,
     FlexLayoutModule,
-    FormsModule,
-    ReactiveFormsModule
+    UserModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    StoreModule.forRoot(reducers)
   ],
   providers: [],
   bootstrap: [AppComponent],
